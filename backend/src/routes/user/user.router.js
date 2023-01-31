@@ -36,9 +36,10 @@ app.post("/add-user", async(req,res)=>{
 app.post("/login-user", async(req,res)=>{
     try{
         if(req.body.token){
+            const token=req.body.token
             const userverify=jwt.verify(token,secretkey)
             const user=await User.findOne({phone_number:userverify.phone_number})
-            res.send({user, token:req.body.token })
+            res.send({user, token})
         }else{
             const {phone_number,password}=req.body
             const user=await User.findOne({phone_number})
