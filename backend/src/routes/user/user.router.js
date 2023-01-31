@@ -35,14 +35,20 @@ app.post("/add-user", async(req,res)=>{
 
 app.post("/login-user", async(req,res)=>{
     try{
-        const {phone_number,password}=req.body
-        const user=await User.findOne({phone_number})
-        const check = await bcrypt.compare(password, user.password);
+        if(req.body.token){
+            const userverify=jwt.verify(token,secretkey)
+            const user=await User.findOne({phone_number:userverify.phone_number})
+            res.send({user, token:req.body.token })
+        }else{
+            const {phone_number,password}=req.body
+            const user=await User.findOne({phone_number})
+            const check = await bcrypt.compare(password, user.password);
         if(check){
             const token = jwt.sign(JSON.stringify(user), secretkey)
             res.send({user, token })
         }else{
             res.status(401).send({message:"Invalid credentials"})
+        }
         }
     }catch(e){
         res.status(401).send({message:"Login failed try again!",error:e})
