@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../Context/AppContext';
 
-
 function Login() {
      const {data,setData,token,setToken}=useContext(AppContext)
      const navigate=useNavigate()
@@ -25,10 +24,10 @@ function Login() {
     const handleUser=()=>{    
         setLoading(true)
         axios.post("https://voosh-backend-8529.onrender.com/login-user",loginData).then((res)=>{
-            localStorage.setItem("vooshToken",res.token)
-            setToken(res.token)
+            localStorage.setItem("vooshToken",res.data.token)
+            setToken(res.data.token)
             setLoading(false)
-            setData(res.user)
+            setData(res.data.user)
             navigate("/")
         }).catch((err)=>{
             console.log(err)
@@ -44,8 +43,8 @@ function Login() {
     setLoading(true)
         axios.post("https://voosh-backend-8529.onrender.com/login-user",obj).then((res)=>{
             setLoading(false)
-            setData(res.user)
-            setToken(res.token)
+            setData(res.data.user)
+            setToken(res.data.token)
             navigate("/")
         }).catch((err)=>{
             console.log(err)
@@ -57,10 +56,10 @@ function Login() {
 
     useEffect(()=>{
         if(!token){
-            let token=localStorage.getItem("vooshToken")
-            // if(token){
-            //     handlePageRefresh(token)
-            // }
+            let t=localStorage.getItem("vooshToken")
+            if(t){
+                handlePageRefresh(t)
+            }
         }
     },[])
 
@@ -87,7 +86,7 @@ function Login() {
 
                         <form onSubmit={handleUser}>
                             <Input type="Number" mb="10px"  name="phone_number" onChange={(e)=>handleChange(e)} required={true} placeholder='Enter phone number' />
-                            <Input type="String" mb="10px"  name="password" onChange={(e)=>handleChange(e)} required={true} placeholder='Enter your password' />
+                            <Input type="Password" mb="10px"  name="password" onChange={(e)=>handleChange(e)} required={true} placeholder='Enter your password' />
                             <Button w="100%" margin="auto" onClick={handleUser} backgroundColor="#EF4D2D" color="white" fontWeight="500px" >Login</Button>
                         </form>                
                     </Box>

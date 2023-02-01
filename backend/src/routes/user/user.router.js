@@ -58,11 +58,12 @@ app.post("/login-user", async(req,res)=>{
 
 app.post("/add-order",async(req,res)=>{
     try{
-        const {token,sub_total,user_id, phone_number}=req.body
+        const {token,sub_total,user_id, phone_number,title}=req.body
         const userverify=jwt.verify(token,secretkey)
        if(sub_total && user_id && phone_number){
         let user=await User.findOne({_id:user_id})
-        user.orders.push({sub_total,
+        user.orders.push({title,
+            sub_total,
             user_id,
             phone_number})
         user=await user.save()

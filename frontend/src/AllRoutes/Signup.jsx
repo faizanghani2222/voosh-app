@@ -62,7 +62,7 @@ function Signup() {
                         <form onSubmit={handleSignup}>
                             <Input type="Number" mb="10px"  name="phone_number" onChange={(e)=>handleChange(e)} required={true} placeholder='Enter phone number' />
                             <Input type="String" mb="10px"  name="name" onChange={(e)=>handleChange(e)} required={true} placeholder='Enter your name' />
-                            <Input type="String" mb="10px"  name="password" onChange={(e)=>handleChange(e)} required={true} placeholder='Enter new password' />
+                            <Input type="Password" mb="10px"  name="password" onChange={(e)=>handleChange(e)} required={true} placeholder='Enter new password' />
                             <Button w="100%" margin="auto" onClick={handleSignup} backgroundColor="#EF4D2D" color="white"  >Signup</Button>
                         </form>                
                     </Box>
