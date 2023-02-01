@@ -72,7 +72,7 @@ function Dashboard() {
             <Box width="70%" m="auto" mt="20px" boxShadow= "rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px">
                 {data.orders && data.orders.map((el)=>{
                     return <Box width="100%" display="flex" borderBottom="1px solid rgba(14, 30, 37, 0.12)" justifyContent="space-around" p="20px"  alignItems="center">
-                                <Heading fontWeight="400" fontSize="24px">order 1{el.title}</Heading>
+                                <Heading fontWeight="400" fontSize="24px">{el.title}</Heading>
                                 <Heading fontWeight="400" fontSize="24px">Sub Total- {el.sub_total}</Heading>
                         </Box>
                 })}
